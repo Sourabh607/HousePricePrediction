@@ -7,8 +7,9 @@ import org.apache.spark.sql.DataFrame
 class NumericConversion {
 
   /*
-  Method to convert all the string type feature columns into indexed form
+ * Method to convert all the string type feature columns into indexed form
   as VectorAssembler takes numeric, binary or vector as input
+  * Defining pipeline
    */
   def numeric(data: DataFrame): DataFrame = {
 
@@ -18,9 +19,9 @@ class NumericConversion {
     val pipeline = new Pipeline()
       .setStages(indexer)
     val stringIndexed = pipeline.fit(data).transform(data)
-   /* stringIndexed.coalesce(1).write.format("csv")
-      .option("header","true").option("inferSchema","true").option("delimeter",",").save("E:/DataSamples/csv/indexedTest.csv")
-   */
+    /* stringIndexed.coalesce(1).write.format("csv")
+       .option("header","true").option("inferSchema","true").option("delimeter",",").save("E:/DataSamples/csv/indexedTest.csv")
+    */
     stringIndexed.show()
     return stringIndexed
   }

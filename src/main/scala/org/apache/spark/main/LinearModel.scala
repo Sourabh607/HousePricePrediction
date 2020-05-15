@@ -2,10 +2,15 @@ package org.apache.spark.main
 
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.regression.LinearRegression
-import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.apache.spark.sql.DataFrame
 
 class LinearModel {
 
+  /*
+ * Declaring Linear regression ML model
+ * Training ML model using Training data
+ * Testing ML model using Test data
+   */
   def predictorModel(train: DataFrame, test: DataFrame): String = {
     import PriceMain.sqlContext.implicits._
     val lr = new LinearRegression().setLabelCol("Actual_SalePrice").setFeaturesCol("features").setMaxIter(10).setRegParam(0.3)

@@ -1,12 +1,12 @@
 package org.apache.spark.main
 
 import org.apache.spark.ml.feature.VectorAssembler
-import org.apache.spark.sql.{DataFrame, SQLContext}
+import org.apache.spark.sql.DataFrame
 
 class Feature {
 
   /*
-  Combining all feature colummns into single single
+  Combining all feature colummns into single features column using Vector Assembler
    */
   def features(stringIndexed: DataFrame): DataFrame = {
     import PriceMain.sqlContext.implicits._
@@ -14,7 +14,7 @@ class Feature {
     val assembler = new VectorAssembler().setInputCols(numericColumns).setOutputCol("features")
     val transformedData = assembler.transform(stringIndexed)
     val featureData = transformedData.select($"features", $"SalePrice".alias("Actual_SalePrice"))
-    featureData.show(2,false)
+    featureData.show(2, false)
     return featureData
   }
 }
